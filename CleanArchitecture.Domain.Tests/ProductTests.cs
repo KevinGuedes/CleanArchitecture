@@ -104,6 +104,5 @@ namespace CleanArchitecture.Domain.Tests
                 .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid stock value.");
         }
-
     }
 }

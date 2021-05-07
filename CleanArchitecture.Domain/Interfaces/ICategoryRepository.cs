@@ -10,7 +10,7 @@ namespace CleanArchitecture.Domain.Interfaces
 
         Task<Category> GetByIdAsync(int? id);
 
-        Task<Category> CreateAsync(Category category);
+        Task<Category> InsertAsync(Category category);
 
         Task<Category> UpdateAsync(Category category);
 
