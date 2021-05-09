@@ -12,9 +12,9 @@ namespace CleanArchitecture.Infra.Data.EntitiesConfiguration
             builder.Property(c => c.Name).HasMaxLength(100).IsRequired();
 
             builder.HasData(
-                new Category(1, "Material Escolar"),
-                new Category(2, "Eletrônicos"),
-                new Category(3, "Acessórios")
+                new Category(1, "School"),
+                new Category(2, "Eletronics"),
+                new Category(3, "Acessories")
            );
 
             builder.ToTable("Categories");
