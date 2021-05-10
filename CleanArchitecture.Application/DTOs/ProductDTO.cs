@@ -13,12 +13,14 @@ namespace CleanArchitecture.Application.DTOs
         [Required(ErrorMessage = "Product Name is Required")]
         [MinLength(3)]
         [MaxLength(100)]
+        [DataType(DataType.Text)]
         [DisplayName("Name")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Product Description is Required")]
         [MinLength(5)]
         [MaxLength(200)]
+        [DataType(DataType.Text)]
         [DisplayName("Description")]
         public string Description { get; set; }
 

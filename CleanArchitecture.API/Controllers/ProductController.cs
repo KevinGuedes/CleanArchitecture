@@ -11,31 +11,31 @@ namespace CleanArchitecture.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly ICategoryService _categoryService;
+        private readonly IProductService _productService;
 
-        public CategoryController(ICategoryService categoryService)
+        public ProductController(IProductService productService)
         {
-            _categoryService = categoryService;
+            _productService = productService;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CategoryDTO>> GetCategories()
+        public async Task<IEnumerable<ProductDTO>> GetProductsAsync()
         {
-            return await _categoryService.GetCategoriesAsync();
+            return await _productService.GetProductsAsync();
         }
 
         [HttpPost]
-        public async Task<ActionResult<CategoryDTO>> InsertCategory(CategoryDTO categoryDTO)
+        public async Task<ActionResult<ProductDTO>> InsertProduct(ProductDTO productDTO)
         {
             if (ModelState.IsValid)
             {
-                await _categoryService.InsertAsync(categoryDTO);
+               await _productService.InsertAsync(productDTO);
 
                 return Ok(new
                 {
-                    message = $"Category {categoryDTO.Name} added."
+                    message = $"Product {productDTO.Name} added."
                 });
             }
 
