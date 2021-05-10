@@ -11,7 +11,7 @@ namespace CleanArchitecture.Infra.Data.EntitiesConfiguration
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Name).HasMaxLength(100).IsRequired();
             builder.Property(c => c.Description).HasMaxLength(250).IsRequired();
-            builder.Property(c => c.Price).HasPrecision(10, 2);
+            builder.Property(c => c.Price).HasPrecision(18, 2);
             builder.HasOne(p => p.Category).WithMany(c => c.Products).HasForeignKey(p => p.CategoryId).IsRequired();
 
             builder.ToTable("Products");

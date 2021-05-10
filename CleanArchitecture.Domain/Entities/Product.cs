@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.Validation;
+﻿using CleanArchitecture.Domain.Exceptions;
 
 namespace CleanArchitecture.Domain.Entities
 {
