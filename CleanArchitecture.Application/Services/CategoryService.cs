@@ -18,7 +18,7 @@ namespace CleanArchitecture.Application.Services
 
         public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
         {
-            _categoryRepository = categoryRepository;
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(ICategoryRepository));
             _mapper = mapper;
         }
 

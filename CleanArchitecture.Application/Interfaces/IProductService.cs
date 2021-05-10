@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanArchitecture.Application.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,14 @@ namespace CleanArchitecture.Application.Interfaces
 {
     public interface IProductService
     {
+        Task<IEnumerable<ProductDTO>> GetProductsAsync();
 
+        Task<ProductDTO> GetByIdAsync(int? id);
+
+        Task InsertAsync(ProductDTO productDTO);
+
+        Task UpdateAsync(ProductDTO productDTO);
+
+        Task RemoveAsync(int? id);
     }
 }

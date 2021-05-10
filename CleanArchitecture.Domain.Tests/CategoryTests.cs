@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Validation;
+using CleanArchitecture.Domain.Exceptions;
 using FluentAssertions;
 using System;
 using Xunit;
