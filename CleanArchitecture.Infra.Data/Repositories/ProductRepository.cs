@@ -34,7 +34,7 @@ namespace CleanArchitecture.Infra.Data.Repositories
             return product;
         }
 
-        public async Task<Product> RemoveAsync(Product product)
+        public async Task<Product> DeleteAsync(Product product)
         {
             _applicationDbContext.Products.Remove(product);
             await _applicationDbContext.SaveChangesAsync();

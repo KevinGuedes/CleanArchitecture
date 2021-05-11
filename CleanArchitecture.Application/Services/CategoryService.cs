@@ -38,10 +38,10 @@ namespace CleanArchitecture.Application.Services
             await _categoryRepository.InsertAsync(newCategory);
         }
 
-        public async Task RemoveAsync(int? id)
+        public async Task DeleteAsync(int? id)
         {
             Category category = await _categoryRepository.GetByIdAsync(id);
-            await _categoryRepository.RemoveAsync(category);
+            await _categoryRepository.DeleteAsync(category);
         }
 
         public async Task UpdateAsync(CategoryDTO categoryDTO)

@@ -14,6 +14,6 @@ namespace CleanArchitecture.Domain.Interfaces
 
         Task<Product> UpdateAsync(Product product);
 
-        Task<Product> RemoveAsync(Product product);
+        Task<Product> DeleteAsync(Product product);
     }
 }

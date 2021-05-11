@@ -41,10 +41,10 @@ namespace CleanArchitecture.Application.Services
             await _productRepository.InsertAsync(newProduct);
         }
 
-        public async Task RemoveAsync(int? id)
+        public async Task DeleteAsync(int? id)
         {
             Product category = await _productRepository.GetByIdAsync(id);
-            await _productRepository.RemoveAsync(category);
+            await _productRepository.DeleteAsync(category);
         }
 
         public async Task UpdateAsync(ProductDTO categoryDTO)

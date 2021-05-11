@@ -14,6 +14,6 @@ namespace CleanArchitecture.Domain.Interfaces
 
         Task<Category> UpdateAsync(Category category);
 
-        Task<Category> RemoveAsync(Category category);
+        Task<Category> DeleteAsync(Category category);
     }
 }

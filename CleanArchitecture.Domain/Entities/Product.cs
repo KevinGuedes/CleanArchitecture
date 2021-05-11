@@ -18,21 +18,24 @@ namespace CleanArchitecture.Domain.Entities
 
         public Category Category { get; set; }
 
-        public Product(string name, string description, decimal price, int stock, string image)
+        public Product(string name, string description, decimal price, int stock, string image, int categoryId)
         {
             ValidateDomain(name, description, price, stock, image);
+            ValidateId(categoryId, true, "Category");
 
             Name = name;
             Description = description;
             Price = price;
             Stock = stock;
             Image = image;
+            CategoryId = categoryId;
         }
 
-        public Product(int id, string name, string description, decimal price, int stock, string image)
+        public Product(int id, string name, string description, decimal price, int stock, string image, int categoryId)
         {
             ValidateDomain(name, description, price, stock, image);
             ValidateId(id);
+            ValidateId(categoryId, true, "Category");
 
             Id = id;
             Name = name;
@@ -40,12 +43,13 @@ namespace CleanArchitecture.Domain.Entities
             Price = price;
             Stock = stock;
             Image = image;
+            CategoryId = categoryId;
         }
 
         public void Update(string name, string description, decimal price, int stock, string image, int categoryId)
         {
             ValidateDomain(name, description, price, stock, image);
-            ValidateId(categoryId);
+            ValidateId(categoryId, true, "Category");
 
             Name = name;
             Description = description;
@@ -70,8 +74,11 @@ namespace CleanArchitecture.Domain.Entities
             DomainExceptionValidation.When(image?.Length > 250, "Image too long. Maximum 250 characters.");
         }
 
-        private void ValidateId(int id)
+        private void ValidateId(int id, bool isExternalId = false, string externalEntityName = null)
         {
+            if(isExternalId)
+                DomainExceptionValidation.When(id < 0, $"Invalid {externalEntityName} id value.");
+
             DomainExceptionValidation.When(id < 0, "Invalid id value.");
         }
     }

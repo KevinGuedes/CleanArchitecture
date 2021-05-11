@@ -34,7 +34,7 @@ namespace CleanArchitecture.Infra.Data.Repositories
             return category;
         }
 
-        public async Task<Category> RemoveAsync(Category category)
+        public async Task<Category> DeleteAsync(Category category)
         {
             _applicationDbContext.Categories.Remove(category);
             await _applicationDbContext.SaveChangesAsync();

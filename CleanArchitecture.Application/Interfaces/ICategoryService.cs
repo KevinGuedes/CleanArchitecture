@@ -14,6 +14,6 @@ namespace CleanArchitecture.Application.Interfaces
 
         Task UpdateAsync(CategoryDTO categoryDTO);
 
-        Task RemoveAsync(int? id);
+        Task DeleteAsync(int? id);
     }
 }

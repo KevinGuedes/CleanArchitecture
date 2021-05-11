@@ -12,7 +12,7 @@ namespace CleanArchitecture.Domain.Tests
         [Trait("Product", "Instantiate")]
         public void CreateProduct_WithValidParameters_ReturnsValidProductObject()
         {
-            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, "Product Image");
+            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, "Product Image", 1);
             action
                 .Should()
                 .NotThrow<DomainExceptionValidation>();
@@ -22,7 +22,7 @@ namespace CleanArchitecture.Domain.Tests
         [Trait("Product", "Instantiate")]
         public void CreateProduct_WithInvalidId_DomainExceptionInvalidId()
         {
-            Action action = () => new Product(-1, "Product Name", "Product Description", 9.99m, 99, "Product Image");
+            Action action = () => new Product(-1, "Product Name", "Product Description", 9.99m, 99, "Product Image", 1);
 
             action
                 .Should()
@@ -34,7 +34,7 @@ namespace CleanArchitecture.Domain.Tests
         [Trait("Product", "Instantiate")]
         public void CreateProduct_WithShortName_DomainExceptionShortName()
         {
-            Action action = () => new Product(1, "Pr", "Product Description", 9.99m, 99, "Product Image");
+            Action action = () => new Product(1, "Pr", "Product Description", 9.99m, 99, "Product Image", 1);
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
@@ -45,7 +45,7 @@ namespace CleanArchitecture.Domain.Tests
         [Trait("Product", "Instantiate")]
         public void CreateProduct_WithLongImageName_DomainExceptionLongImageName()
         {
-            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, "Product image tooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooogggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg");
+            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, "Product image tooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooogggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg", 1);
 
             action
                 .Should()
@@ -57,7 +57,7 @@ namespace CleanArchitecture.Domain.Tests
         [Trait("Product", "Instantiate")]
         public void CreateProduct_WithNullImageName_NoDomainException()
         {
-            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, null);
+            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, null, 1);
             action
                 .Should()
                 .NotThrow<DomainExceptionValidation>();
@@ -67,7 +67,7 @@ namespace CleanArchitecture.Domain.Tests
         [Trait("Product", "Instantiate")]
         public void CreateProduct_WithNullImageName_NoNullReferenceException()
         {
-            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, null);
+            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, null, 1);
             action
                 .Should()
                 .NotThrow<NullReferenceException>();
@@ -77,7 +77,7 @@ namespace CleanArchitecture.Domain.Tests
                 [Trait("Product", "Instantiate")]
         public void CreateProduct_WithEmptyImageName_NoDomainException()
         {
-            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, "");
+            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, "", 1);
             action
                 .Should()
                 .NotThrow<DomainExceptionValidation>();
@@ -87,7 +87,7 @@ namespace CleanArchitecture.Domain.Tests
         [Trait("Product", "Instantiate")]
         public void CreateProduct_WithInvalidPriceValue_DomainExceptionInvalidPrice()
         {
-            Action action = () => new Product(1, "Product Name", "Product Description", -9.99m, 99, "");
+            Action action = () => new Product(1, "Product Name", "Product Description", -9.99m, 99, "", 1);
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
@@ -98,11 +98,22 @@ namespace CleanArchitecture.Domain.Tests
         [Trait("Product", "Instantiate")]
         public void CreateProduct_WithInvalidStockValue_DomainExceptionInvalidStock()
         {
-            Action action = () => new Product(1, "Pro", "Product Description", 9.99m, -5, "product image");
+            Action action = () => new Product(1, "Pro", "Product Description", 9.99m, -5, "product image", 1);
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
                 .WithMessage("Invalid stock value.");
+        }
+
+        [Fact(DisplayName = "Instantiate Product With Invalid Category Id")]
+        [Trait("Product", "Instantiate")]
+        public void CreateProduct_WithInvalidCategoryId_DomainExceptionInvalidExternalEntityId()
+        {
+            Action action = () => new Product(1, "Pro", "Product Description", 9.99m, 5, "product image", -1);
+            action
+                .Should()
+                .Throw<DomainExceptionValidation>()
+                .WithMessage("Invalid Category id value.");
         }
     }
 }
