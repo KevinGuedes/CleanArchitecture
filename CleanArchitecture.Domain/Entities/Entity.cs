@@ -6,7 +6,7 @@ namespace CleanArchitecture.Domain.Entities
     {
         public int Id { get; protected set; }
 
-        public void ValidateId(int id, bool isExternalId = false, string externalEntityName = null)
+        private protected void ValidateId(int id, bool isExternalId = false, string externalEntityName = null)
         {
             if (isExternalId)
                 DomainExceptionValidation.When(id < 0, $"Invalid {externalEntityName} id value");
