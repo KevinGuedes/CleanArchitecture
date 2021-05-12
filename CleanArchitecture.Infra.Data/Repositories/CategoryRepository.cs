@@ -16,7 +16,7 @@ namespace CleanArchitecture.Infra.Data.Repositories
             _applicationDbContext = applicationDbContext;
         }
 
-        public async Task<Category> GetByIdAsync(int? id)
+        public async Task<Category> GetByIdAsync(int id)
         {
             return await _applicationDbContext.Categories.FindAsync(id);
         }

@@ -26,7 +26,7 @@ namespace CleanArchitecture.Domain.Tests
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid id value.");
+                .WithMessage("Invalid id value");
         }
 
         [Fact(DisplayName = "Instantiate Category With Short Name")]
@@ -37,7 +37,7 @@ namespace CleanArchitecture.Domain.Tests
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
-                .WithMessage("Name too short. Minimum 3 characters.");
+                .WithMessage("Name too short. Minimum 3 characters");
         }
 
         [Fact(DisplayName = "Instantiate Category With Null Name")]
@@ -48,7 +48,7 @@ namespace CleanArchitecture.Domain.Tests
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid name. Name must not be null or empty.");
+                .WithMessage("Invalid name. Name must not be null or empty");
         }
 
         [Fact(DisplayName = "Instantiate Category With Empty Name")]
@@ -59,7 +59,7 @@ namespace CleanArchitecture.Domain.Tests
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid name. Name must not be null or empty.");
+                .WithMessage("Invalid name. Name must not be null or empty");
         }
     }
 }

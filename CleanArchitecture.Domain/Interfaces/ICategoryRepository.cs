@@ -8,7 +8,7 @@ namespace CleanArchitecture.Domain.Interfaces
     {
         Task<IEnumerable<Category>> GetCategoriesAsync();
 
-        Task<Category> GetByIdAsync(int? id);
+        Task<Category> GetByIdAsync(int id);
 
         Task<Category> InsertAsync(Category category);
 

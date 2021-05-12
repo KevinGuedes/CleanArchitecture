@@ -22,7 +22,7 @@ namespace CleanArchitecture.Application.Products.Handlers
             Product product = await _productRepository.GetByIdAsync(request.Id);
 
             if (product == null)
-                throw new ApplicationException("Failed to update product.");
+                throw new ApplicationException($"The older version of the product with id {request.Id} was not found");
 
             product.Update(request.Name, request.Description, request.Price, request.Stock, request.Image, request.CategoryId);
 

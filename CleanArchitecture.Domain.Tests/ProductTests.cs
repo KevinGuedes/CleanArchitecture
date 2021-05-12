@@ -27,7 +27,7 @@ namespace CleanArchitecture.Domain.Tests
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Id value.");
+                .WithMessage("Invalid Id value");
         }
 
         [Fact(DisplayName = "Instantiate Product With Short Name")]
@@ -38,7 +38,7 @@ namespace CleanArchitecture.Domain.Tests
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
-                .WithMessage("Name too short. Minimum 3 characters.");
+                .WithMessage("Name too short. Minimum 3 characters");
         }
 
         [Fact(DisplayName = "Instantiate Product With Long Image Name")]
@@ -50,7 +50,7 @@ namespace CleanArchitecture.Domain.Tests
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
-                .WithMessage("Image too long. Maximum 250 characters.");
+                .WithMessage("Image too long. Maximum 250 characters");
         }
 
         [Fact(DisplayName = "Instantiate Product With Null Image Name (No DomainException)")]
@@ -91,7 +91,7 @@ namespace CleanArchitecture.Domain.Tests
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid price value.");
+                .WithMessage("Invalid price value");
         }
 
         [Fact(DisplayName = "Instantiate Product With Invalid Stock")]
@@ -102,7 +102,7 @@ namespace CleanArchitecture.Domain.Tests
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid stock value.");
+                .WithMessage("Invalid stock value");
         }
 
         [Fact(DisplayName = "Instantiate Product With Invalid Category Id")]
@@ -113,7 +113,7 @@ namespace CleanArchitecture.Domain.Tests
             action
                 .Should()
                 .Throw<DomainExceptionValidation>()
-                .WithMessage("Invalid Category id value.");
+                .WithMessage("Invalid Category id value");
         }
     }
 }

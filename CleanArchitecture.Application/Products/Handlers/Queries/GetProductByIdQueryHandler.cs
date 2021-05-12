@@ -23,7 +23,7 @@ namespace CleanArchitecture.Application.Products.Handlers
             Product product = await _productRepository.GetByIdAsync(request.Id);
 
             if (product == null)
-                throw new ApplicationException("Failed to delete product.");
+                throw new ApplicationException($"Product with id {request.Id} not found");
 
             return product;
         }

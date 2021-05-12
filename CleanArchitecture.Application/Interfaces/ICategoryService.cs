@@ -8,12 +8,12 @@ namespace CleanArchitecture.Application.Interfaces
     {
         Task<IEnumerable<CategoryDTO>> GetCategoriesAsync();
 
-        Task<CategoryDTO> GetByIdAsync(int? id);
+        Task<CategoryDTO> GetByIdAsync(int id);
 
         Task InsertAsync(CategoryDTO categoryDTO);
 
         Task UpdateAsync(CategoryDTO categoryDTO);
 
-        Task DeleteAsync(int? id);
+        Task DeleteAsync(int id);
     }
 }

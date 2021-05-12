@@ -61,25 +61,17 @@ namespace CleanArchitecture.Domain.Entities
 
         private static void ValidateDomain(string name, string description, decimal price, int stock, string image)
         {
-            DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Name is required.");
-            DomainExceptionValidation.When(name.Length < 3, "Name too short. Minimum 3 characters.");
+            DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Name is required");
+            DomainExceptionValidation.When(name.Length < 3, "Name too short. Minimum 3 characters");
 
-            DomainExceptionValidation.When(string.IsNullOrEmpty(description), "Description is required.");
-            DomainExceptionValidation.When(description.Length < 5, "Description too short. Minimum 4 characters.");
+            DomainExceptionValidation.When(string.IsNullOrEmpty(description), "Description is required");
+            DomainExceptionValidation.When(description.Length < 5, "Description too short. Minimum 4 characters");
 
 
             DomainExceptionValidation.When(price < 0, "Invalid price value.");
             DomainExceptionValidation.When(stock < 0, "Invalid stock value.");
 
-            DomainExceptionValidation.When(image?.Length > 250, "Image too long. Maximum 250 characters.");
-        }
-
-        private void ValidateId(int id, bool isExternalId = false, string externalEntityName = null)
-        {
-            if(isExternalId)
-                DomainExceptionValidation.When(id < 0, $"Invalid {externalEntityName} id value.");
-
-            DomainExceptionValidation.When(id < 0, "Invalid id value.");
+            DomainExceptionValidation.When(image?.Length > 250, "Image too long. Maximum 250 characters");
         }
     }
 }

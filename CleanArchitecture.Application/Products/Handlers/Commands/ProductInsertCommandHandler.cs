@@ -22,7 +22,7 @@ namespace CleanArchitecture.Application.Products.Handlers
             Product product = new(request.Name, request.Description, request.Price, request.Stock, request.Image, request.CategoryId);
 
             if (product == null)
-                throw new ApplicationException("Failed to insert new product");
+                throw new ApplicationException("Invalid product");
 
             return await _productRepository.InsertAsync(product);
         }

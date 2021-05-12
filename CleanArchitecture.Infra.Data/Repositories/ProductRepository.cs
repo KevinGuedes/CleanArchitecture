@@ -16,7 +16,7 @@ namespace CleanArchitecture.Infra.Data.Repositories
             _applicationDbContext = applicationDbContext;
         }
 
-        public async Task<Product> GetByIdAsync(int? id)
+        public async Task<Product> GetByIdAsync(int id)
         {
             return await _applicationDbContext.Products.Include(p => p.Category).SingleOrDefaultAsync(p => p.Id == id);
         }

@@ -4,9 +4,9 @@ using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.Mappings
 {
-    public class DomainToDTOMappingProfile : Profile
+    public class ProductToDTOMappingProfile : Profile
     {
-        public DomainToDTOMappingProfile()
+        public ProductToDTOMappingProfile()
         {
             CreateMap<CategoryDTO, Category>().ReverseMap();
             CreateMap<ProductDTO, Product>().ReverseMap();

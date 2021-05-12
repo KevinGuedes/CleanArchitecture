@@ -23,7 +23,7 @@ namespace CleanArchitecture.Application.Products.Handlers
             IEnumerable<Product> products = await _productRepository.GetProductsAsync();
 
             if(products == null)
-                throw new ApplicationException("Products not found.");
+                throw new ApplicationException("Failed to load products");
 
             return products;
         }

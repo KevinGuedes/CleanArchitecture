@@ -20,7 +20,7 @@ namespace CleanArchitecture.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<CategoryDTO> GetByIdAsync(int? id)
+        public async Task<CategoryDTO> GetByIdAsync(int id)
         {
             Category category = await _categoryRepository.GetByIdAsync(id);
             return _mapper.Map<CategoryDTO>(category);
@@ -38,7 +38,7 @@ namespace CleanArchitecture.Application.Services
             await _categoryRepository.InsertAsync(newCategory);
         }
 
-        public async Task DeleteAsync(int? id)
+        public async Task DeleteAsync(int id)
         {
             Category category = await _categoryRepository.GetByIdAsync(id);
             await _categoryRepository.DeleteAsync(category);

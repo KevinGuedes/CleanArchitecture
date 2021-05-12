@@ -11,12 +11,12 @@ namespace CleanArchitecture.Application.Interfaces
     {
         Task<IEnumerable<ProductDTO>> GetProductsAsync();
 
-        Task<ProductDTO> GetByIdAsync(int? id);
+        Task<ProductDTO> GetByIdAsync(int id);
 
         Task InsertAsync(ProductDTO productDTO);
 
         Task UpdateAsync(ProductDTO productDTO);
 
-        Task DeleteAsync(int? id);
+        Task DeleteAsync(int id);
     }
 }
