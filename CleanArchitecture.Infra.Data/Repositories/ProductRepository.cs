@@ -24,6 +24,13 @@ namespace CleanArchitecture.Infra.Data.Repositories
             return products.Where(p => p.Id == id).Select(p => new Product(p.Id, p.Name, p.Description, p.Price, p.Stock, p.Image, p.CategoryId)).SingleOrDefault();
         }
 
+        public async Task<IEnumerable<Product>> GetByCategoryIdAsync(int categoryId)
+        {
+            IEnumerable<Product> products = await _applicationDbContext.Products.Include(p => p.Category).ToListAsync();
+
+            return products.Where(p => p.CategoryId == categoryId).Select(p => new Product(p.Id, p.Name, p.Description, p.Price, p.Stock, p.Image, p.CategoryId));
+        }
+
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             IEnumerable<Product> products = await _applicationDbContext.Products.Include(p => p.Category).ToListAsync();

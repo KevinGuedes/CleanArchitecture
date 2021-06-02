@@ -8,6 +8,8 @@ namespace CleanArchitecture.Domain.Interfaces
     {
         Task<IEnumerable<Product>> GetProductsAsync();
 
+        Task<IEnumerable<Product>> GetByCategoryIdAsync(int categoryId);
+
         Task<Product> GetByIdAsync(int id);
 
         Task<Product> InsertAsync(Product product);

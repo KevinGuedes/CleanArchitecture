@@ -45,6 +45,15 @@ namespace CleanArchitecture.Application.Services
             return _mapper.Map<IEnumerable<ProductDTO>>(products);
         }
 
+        public async Task<IEnumerable<ProductDTO>> GetProductsByCategoryIdAsync(int categoryId)
+        {
+            GetProductsByCategoryIdQuery getProductsByCategoryIdQuery = new(categoryId);
+
+            IEnumerable<Product> products = await _mediator.Send(getProductsByCategoryIdQuery);
+
+            return _mapper.Map<IEnumerable<ProductDTO>>(products);
+        }
+
         public async Task InsertAsync(ProductDTO productDTO)
         {
             ProductInsertCommand productInsertCommand = _mapper.Map<ProductInsertCommand>(productDTO);

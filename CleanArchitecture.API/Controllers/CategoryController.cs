@@ -2,6 +2,7 @@
 using CleanArchitecture.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.API.Controllers
@@ -18,9 +19,14 @@ namespace CleanArchitecture.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CategoryDTO>> GetCategories()
+        public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetCategories()
         {
-            return await _categoryService.GetCategoriesAsync();
+            IEnumerable<CategoryDTO> categories = await _categoryService.GetCategoriesAsync();
+
+            if (!categories.Any())
+                return NoContent();
+
+            return Ok(categories);
         }
 
         [HttpPost]

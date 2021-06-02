@@ -11,6 +11,8 @@ namespace CleanArchitecture.Application.Interfaces
     {
         Task<IEnumerable<ProductDTO>> GetProductsAsync();
 
+        Task<IEnumerable<ProductDTO>> GetProductsByCategoryIdAsync(int categoryId);
+
         Task<ProductDTO> GetByIdAsync(int id);
 
         Task InsertAsync(ProductDTO productDTO);

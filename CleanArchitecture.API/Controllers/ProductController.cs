@@ -2,6 +2,7 @@
 using CleanArchitecture.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.API.Controllers
@@ -18,9 +19,14 @@ namespace CleanArchitecture.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ProductDTO>> GetProductsAsync()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsAsync()
         {
-            return await _productService.GetProductsAsync();
+            IEnumerable<ProductDTO> products = await _productService.GetProductsAsync();
+
+            if (!products.Any())
+                return NoContent();
+
+            return Ok(products);
         }
 
         [HttpPost]
@@ -32,11 +38,22 @@ namespace CleanArchitecture.API.Controllers
 
                 return Ok(new
                 {
-                    message = $"Product {productDTO.Name} added."
+                    message = $"Product '{productDTO.Name}' added."
                 });
             }
 
             return BadRequest(ModelState);
+        }
+
+        [HttpGet("filter")]
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsByCategoryIdAsync([FromQuery] int categoryId)
+        {
+            IEnumerable<ProductDTO> products = await _productService.GetProductsByCategoryIdAsync(categoryId);
+
+            if (!products.Any())
+                return NoContent();
+
+            return Ok(products);
         }
     }
 }
