@@ -40,7 +40,7 @@ namespace CleanArchitecture.Application.DTOs
         [DisplayName("Product Image")]
         public string Image { get; set; }
 
-        public Category Category { get; set; }
+        //public Category Category { get; set; }
 
         [DisplayName("Product Category Id")]
         public int CategoryId { get; set; }

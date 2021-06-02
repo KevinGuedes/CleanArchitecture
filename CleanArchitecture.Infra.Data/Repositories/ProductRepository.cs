@@ -3,6 +3,7 @@ using CleanArchitecture.Domain.Interfaces;
 using CleanArchitecture.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infra.Data.Repositories
@@ -18,12 +19,16 @@ namespace CleanArchitecture.Infra.Data.Repositories
 
         public async Task<Product> GetByIdAsync(int id)
         {
-            return await _applicationDbContext.Products.Include(p => p.Category).SingleOrDefaultAsync(p => p.Id == id);
+            IEnumerable<Product> products = await _applicationDbContext.Products.Include(p => p.Category).ToListAsync();
+
+            return products.Where(p => p.Id == id).Select(p => new Product(p.Id, p.Name, p.Description, p.Price, p.Stock, p.Image, p.CategoryId)).SingleOrDefault();
         }
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            return await _applicationDbContext.Products.Include(p => p.Category).ToListAsync();
+            IEnumerable<Product> products = await _applicationDbContext.Products.Include(p => p.Category).ToListAsync();
+
+            return products.Select(p => new Product(p.Id, p.Name, p.Description, p.Price, p.Stock, p.Image, p.CategoryId));
         }
 
         public async Task<Product> InsertAsync(Product product)
