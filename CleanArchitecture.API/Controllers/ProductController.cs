@@ -19,14 +19,16 @@ namespace CleanArchitecture.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsAsync()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsAsync([FromQuery] bool filter, [FromQuery] int categoryId)
         {
-            IEnumerable<ProductDTO> products = await _productService.GetProductsAsync();
+            IEnumerable<ProductDTO> products;
 
-            if (!products.Any())
-                return NoContent();
+            if (filter)
+                products = await _productService.GetProductsByCategoryIdAsync(categoryId);
+            else
+                products = await _productService.GetProductsAsync();
 
-            return Ok(products);
+            return products.Any() ? Ok(products) : NotFound(new { message  = "No products found"});
         }
 
         [HttpPost]
@@ -34,26 +36,25 @@ namespace CleanArchitecture.API.Controllers
         {
             if (ModelState.IsValid)
             {
-               await _productService.InsertAsync(productDTO);
+                await _productService.InsertAsync(productDTO);
 
-                return Ok(new
-                {
-                    message = $"Product '{productDTO.Name}' added."
-                });
+                return Ok(new { message = $"Product '{productDTO.Name}' inserted" });
             }
 
             return BadRequest(ModelState);
         }
 
-        [HttpGet("filter")]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsByCategoryIdAsync([FromQuery] int categoryId)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCategory(int id)
         {
-            IEnumerable<ProductDTO> products = await _productService.GetProductsByCategoryIdAsync(categoryId);
+            ProductDTO product = await _productService.GetByIdAsync(id);
 
-            if (!products.Any())
-                return NoContent();
+            if (product == null)
+                return NotFound(new { message = $"Product not found" });
 
-            return Ok(products);
+            await _productService.DeleteAsync(id);
+
+            return Ok(new { message = $"Product {product.Name} deleted" });
         }
     }
 }

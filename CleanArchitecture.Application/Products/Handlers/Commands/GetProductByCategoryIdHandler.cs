@@ -27,7 +27,7 @@ namespace CleanArchitecture.Application.Products.Handlers.Commands
             Category category = await _categoryRepository.GetByIdAsync(request.CategoryId); 
 
             if(category == null)
-                throw new ApplicationException($"Category not found");
+                return null;
 
             IEnumerable<Product> products = await _productRepository.GetByCategoryIdAsync(request.CategoryId);
 

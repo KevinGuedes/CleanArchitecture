@@ -42,7 +42,7 @@ namespace CleanArchitecture.Application.DTOs
 
         //public Category Category { get; set; }
 
-        [DisplayName("Product Category Id")]
+        [DisplayName("Category Id")]
         public int CategoryId { get; set; }
     }
 }

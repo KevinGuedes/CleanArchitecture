@@ -23,26 +23,37 @@ namespace CleanArchitecture.API.Controllers
         {
             IEnumerable<CategoryDTO> categories = await _categoryService.GetCategoriesAsync();
 
-            if (!categories.Any())
-                return NoContent();
-
-            return Ok(categories);
+            return categories.Any() ? Ok(categories) : NotFound(new { message = "No categories found" });
         }
 
         [HttpPost]
-        public async Task<ActionResult<CategoryDTO>> InsertCategory(CategoryDTO categoryDTO)
+        public async Task<ActionResult<CategoryDTO>> InsertCategory(CategoryDTO category)
         {
             if (ModelState.IsValid)
             {
-                await _categoryService.InsertAsync(categoryDTO);
+                await _categoryService.InsertAsync(category);
 
                 return Ok(new
                 {
-                    message = $"Category {categoryDTO.Name} added."
+                    message = $"Category '{category.Name}' inserted"
                 });
             }
 
             return BadRequest(ModelState);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCategory(int id)
+        {
+            CategoryDTO category = await _categoryService.GetByIdAsync(id);
+
+            if (category == null)
+                return NotFound(new { message = $"Category not found" });
+
+            await _categoryService.DeleteAsync(id);
+
+            return Ok(new { message = $"Category {category.Name} deleted" });
         }
     }
 }

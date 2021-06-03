@@ -19,23 +19,23 @@ namespace CleanArchitecture.Infra.Data.Repositories
 
         public async Task<Product> GetByIdAsync(int id)
         {
-            IEnumerable<Product> products = await _applicationDbContext.Products.Include(p => p.Category).ToListAsync();
+            /*IEnumerable<Product> products =*/ return await _applicationDbContext.Products.FindAsync(id);
 
-            return products.Where(p => p.Id == id).Select(p => new Product(p.Id, p.Name, p.Description, p.Price, p.Stock, p.Image, p.CategoryId)).SingleOrDefault();
+            //return products.Where(p => p.Id == id).Select(p => new Product(p.Id, p.Name, p.Description, p.Price, p.Stock, p.Image, p.CategoryId)).SingleOrDefault();
         }
 
         public async Task<IEnumerable<Product>> GetByCategoryIdAsync(int categoryId)
         {
-            IEnumerable<Product> products = await _applicationDbContext.Products.Include(p => p.Category).ToListAsync();
+            /*IEnumerable<Product> products = */ return await _applicationDbContext.Products.Where(p => p.CategoryId == categoryId).OrderBy(p => p.Name).ToListAsync();
 
-            return products.Where(p => p.CategoryId == categoryId).Select(p => new Product(p.Id, p.Name, p.Description, p.Price, p.Stock, p.Image, p.CategoryId));
+            //return products.Where(p => p.CategoryId == categoryId).Select(p => new Product(p.Id, p.Name, p.Description, p.Price, p.Stock, p.Image, p.CategoryId));
         }
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            IEnumerable<Product> products = await _applicationDbContext.Products.Include(p => p.Category).ToListAsync();
+            /*IEnumerable<Product> products =*/ return await _applicationDbContext.Products.Include(p => p.Category).OrderBy(p => p.Name).ToListAsync();
 
-            return products.Select(p => new Product(p.Id, p.Name, p.Description, p.Price, p.Stock, p.Image, p.CategoryId));
+            //return products.Select(p => new Product(p.Id, p.Name, p.Description, p.Price, p.Stock, p.Image, p.CategoryId));
         }
 
         public async Task<Product> InsertAsync(Product product)

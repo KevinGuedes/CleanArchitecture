@@ -4,6 +4,7 @@ using CleanArchitecture.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace CleanArchitecture.Infra.Data.Repositories
 {
@@ -23,7 +24,7 @@ namespace CleanArchitecture.Infra.Data.Repositories
 
         public async Task<IEnumerable<Category>> GetCategoriesAsync()
         {
-            return await _applicationDbContext.Categories.ToListAsync();
+            return await _applicationDbContext.Categories.OrderBy(c => c.Name).ToListAsync();
         }
 
         public async Task<Category> InsertAsync(Category category)
