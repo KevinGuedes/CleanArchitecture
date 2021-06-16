@@ -15,7 +15,6 @@ namespace CleanArchitecture.Infra.Data.Identity
             _roleManager = roleManager;
         }
 
-
         public void SeedRoles()
         {
             if (!_roleManager.RoleExistsAsync("Admin").Result)
@@ -41,7 +40,7 @@ namespace CleanArchitecture.Infra.Data.Identity
         {
             string userNameAdmin = "Kevin";
             string emailAdmin = "kevinguedes@edu.unifor.br";
-            string passwordAdmin = "!)*nfs$heat%";
+            string passwordAdmin = "!)*nfs$heaT9%";
 
             if (_userManager.FindByEmailAsync(emailAdmin).Result == null)
             {
@@ -62,7 +61,7 @@ namespace CleanArchitecture.Infra.Data.Identity
 
             string userName = "Kariny";
             string email = "kariny@gmail.com";
-            string password = "kariny123";
+            string password = "karinY%123";
 
             if (_userManager.FindByEmailAsync(email).Result == null)
             {

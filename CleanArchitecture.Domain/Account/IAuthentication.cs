@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Domain.Account
 {
-    public interface IAuthenticate
+    public interface IAuthentication
     {
-        Task<bool> Authenticate(string email, string password);
+        Task<bool> Authenticate(string userName, string password);
 
-        Task<bool> RegisterUser(string userName, string email, string password);
+        Task<bool> Register(string userName, string email, string password);
 
         Task Logout();
     }

@@ -1,3 +1,4 @@
+using CleanArchitecture.Domain.Account;
 using CleanArchitecture.Infra.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +29,7 @@ namespace CleanArchitecture.API
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISeedUserRole seedUserRole)
         {
             if (env.IsDevelopment())
             {
@@ -41,6 +42,10 @@ namespace CleanArchitecture.API
 
             app.UseRouting();
 
+            seedUserRole.SeedRoles();
+            seedUserRole.SeedUsers();
+
+            app.UseAuthentication(); //always before authorization
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

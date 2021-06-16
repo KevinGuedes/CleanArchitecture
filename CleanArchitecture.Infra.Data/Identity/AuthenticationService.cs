@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infra.Data.Identity
 {
-    public class AuthenticationService : IAuthenticate
+    public class AuthenticationService : IAuthentication
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
@@ -19,14 +19,14 @@ namespace CleanArchitecture.Infra.Data.Identity
             _signInManager = signInManager;
         }
 
-        public async Task<bool> Authenticate(string email, string password)
+        public async Task<bool> Authenticate(string userName, string password)
         {
-            SignInResult result = await _signInManager.PasswordSignInAsync(email, password, false, lockoutOnFailure: false);
+            SignInResult result = await _signInManager.PasswordSignInAsync(userName, password, false, false);
 
             return result.Succeeded;
         }
 
-        public async Task<bool> RegisterUser(string userName, string email, string password)
+        public async Task<bool> Register(string userName, string email, string password)
         {
             User newUser = new(userName, email);
 

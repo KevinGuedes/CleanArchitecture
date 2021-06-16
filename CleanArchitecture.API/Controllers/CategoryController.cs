@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Application.DTOs;
 using CleanArchitecture.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace CleanArchitecture.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -33,16 +35,13 @@ namespace CleanArchitecture.API.Controllers
             {
                 await _categoryService.InsertAsync(category);
 
-                return Ok(new
-                {
-                    message = $"Category '{category.Name}' inserted"
-                });
+                return Ok(new { message = $"Category '{category.Name}' inserted" });
             }
 
             return BadRequest(ModelState);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCategory(int id)
         {

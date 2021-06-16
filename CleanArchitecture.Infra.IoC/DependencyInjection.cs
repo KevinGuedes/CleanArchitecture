@@ -1,10 +1,13 @@
 ﻿using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Application.Mappings;
 using CleanArchitecture.Application.Services;
+using CleanArchitecture.Domain.Account;
 using CleanArchitecture.Domain.Interfaces;
 using CleanArchitecture.Infra.Data.Context;
+using CleanArchitecture.Infra.Data.Identity;
 using CleanArchitecture.Infra.Data.Repositories;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,11 +28,21 @@ namespace CleanArchitecture.Infra.IoC
                 .AddScoped<ICategoryRepository, CategoryRepository>() //The interface and the concrete class who implements it
                 .AddScoped<IProductRepository, ProductRepository>()
                 .AddScoped<ICategoryService, CategoryService>()
-                .AddScoped<IProductService, ProductService>();
+                .AddScoped<IProductService, ProductService>()
+                .AddScoped<IAuthentication, AuthenticationService>()
+                .AddScoped<ISeedUserRole, SeedUserRole>();
 
             services
                 .AddAutoMapper(typeof(ProductToDTOMappingProfile))
                 .AddMediatR(AppDomain.CurrentDomain.Load("CleanArchitecture.Application"));
+
+            services
+                .AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services
+                .ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Account/login");
 
             return services;
         }
