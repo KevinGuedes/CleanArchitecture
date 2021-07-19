@@ -23,28 +23,44 @@ namespace CleanArchitecture.API.Controllers
         {
             IEnumerable<CategoryDTO> categories = await _categoryService.GetCategoriesAsync();
 
-            return categories.Any() ? Ok(categories) : NotFound(new { message = "No categories found" });
+            return categories == null ? NotFound(new { message = "No categories found" }) : Ok(categories);
+        }
+
+        [HttpGet("{id:int}", Name = "GetCategory")]
+        public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetCategoryById([FromRoute] int id)
+        {
+            CategoryDTO category = await _categoryService.GetByIdAsync(id);
+
+            return category == null ? NotFound(new { message = "Category not found" }) : Ok(category);
         }
 
         [HttpPost]
-        public async Task<ActionResult<CategoryDTO>> InsertCategory(CategoryDTO category)
+        public async Task<ActionResult<CategoryDTO>> InsertCategory([FromBody] CategoryDTO category)
         {
             if (ModelState.IsValid)
             {
                 await _categoryService.InsertAsync(category);
-
-                return Ok(new
-                {
-                    message = $"Category '{category.Name}' inserted"
-                });
+                return new CreatedAtRouteResult("GetCategory", new { id = category.Id }, category);
             }
 
             return BadRequest(ModelState);
         }
 
+        [HttpPut]
+        public async Task<ActionResult<CategoryDTO>> UpdateCategory([FromBody] CategoryDTO category)
+        {
+            if (ModelState.IsValid)
+            {
+                await _categoryService.UpdateAsync(category);
+
+                return Ok(category);
+            }
+
+            return BadRequest(ModelState);
+        }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteCategory(int id)
+        public async Task<ActionResult> DeleteCategory([FromRoute] int id)
         {
             CategoryDTO category = await _categoryService.GetByIdAsync(id);
 
