@@ -59,7 +59,7 @@ namespace CleanArchitecture.API.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteCategory([FromRoute] int id)
         {
             CategoryDTO category = await _categoryService.GetByIdAsync(id);
