@@ -41,9 +41,6 @@ namespace CleanArchitecture.Infra.IoC
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services
-                .ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Account/login");
-
             return services;
         }
     }
